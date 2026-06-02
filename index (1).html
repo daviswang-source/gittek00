@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智齊先進 Gitek Advance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #104484;
+    --navy-deep: #002e61;
+    --green: #49D147;
+    --green-dark: #007511;
+    --gray-bg: #F3F3F3;
+    --gray-border: #C3C6D2;
+    --steel: #4A5568;
+    --ink: #231815;
+    --white: #FFFFFF;
+    --text-body: #1a1c1c;
+    --text-muted: #434750;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text-body);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: var(--navy);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  .nav-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--white);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+  }
+
+  .nav-logo span { color: var(--green); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+  }
+
+  .nav-links li { position: relative; }
+
+  .nav-links a {
+    display: block;
+    padding: 0 18px;
+    height: 64px;
+    line-height: 64px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--green);
+  }
+
+  .nav-links a.active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    right: 18px;
+    height: 3px;
+    background: var(--green);
+    border-radius: 2px 2px 0 0;
+  }
+
+  /* Dropdown */
+  .has-dropdown:hover .dropdown { display: block; }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    background: var(--navy-deep);
+    min-width: 160px;
+    border-top: 3px solid var(--green);
+    border-radius: 0 0 4px 4px;
+  }
+
+  .dropdown a {
+    height: auto;
+    line-height: 1.4;
+    padding: 12px 20px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .dropdown a:last-child { border-bottom: none; }
+
+  .nav-lang {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    padding: 0 18px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://bailingtek.com.tw/wp-content/uploads/2025/02/heroimage_01.jpg');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,46,97,0.88) 0%, rgba(16,68,132,0.65) 50%, rgba(0,46,97,0.2) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px 0 44px;
+    border-left: 5px solid var(--green);
+  }
+
+  .hero-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+
+  .hero-subtitle {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 36px;
+    line-height: 1.6;
+    max-width: 520px;
+  }
+
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    transition: all 0.2s;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: var(--navy-deep);
+  }
+
+  .btn-primary:hover { background: #3dc43b; transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.5);
+  }
+
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+  .btn-navy {
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .btn-navy:hover { background: var(--navy-deep); }
+
+  .btn-green-outline {
+    background: transparent;
+    color: var(--green-dark);
+    border: 1.5px solid var(--green);
+  }
+
+  .btn-green-outline:hover { background: var(--green); color: var(--navy-deep); }
+
+  /* ── SECTION COMMON ── */
+  .section {
+    padding: 80px 0;
+  }
+
+  .section-gray { background: var(--gray-bg); }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+
+  .section-heading-center {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 48px;
+  }
+
+  .accent-bar {
+    width: 4px;
+    height: 36px;
+    background: var(--green);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .section-heading h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    line-height: 1.2;
+  }
+
+  .section-heading h2 span {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-left: 10px;
+    letter-spacing: 0.02em;
+  }
+
+  .section-heading-center h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy-deep);
+  }
+
+  .section-heading-center p {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+
+  /* ── HOME: STATS BAR ── */
+  .stats-bar {
+    background: var(--navy-deep);
+    padding: 32px 0;
+  }
+
+  .stats-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0 20px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.03em;
+  }
+
+  /* ── PRODUCT CARDS ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .product-card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
+    border-bottom: 4px solid var(--green);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+  .product-card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    background: #e8e8e8;
+    position: relative;
+  }
+
+  .product-card-img-wrap {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: #e2e2e2;
+  }
+
+  .product-card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--green);
+    color: var(--navy-deep);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .product-card-body { padding: 20px 20px 8px; }
+
+  .product-card-body h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 8px;
+  }
+
+  .product-card-body p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 7px 0;
+    border-top: 1px solid #eee;
+  }
+
+  .spec-row .spec-label { color: var(--text-muted); }
+  .spec-row .spec-value { color: var(--navy); font-weight: 600; font-family: 'Montserrat', sans-serif; }
+
+  .product-card-footer {
+    padding: 12px 20px 20px;
+  }
+
+  .product-card-footer .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  /* ── FEATURE SPLIT ── */
+  .feature-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .feature-split.reverse { direction: rtl; }
+  .feature-split.reverse > * { direction: ltr; }
+
+  .feature-text h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 16px;
+  }
+
+  .feature-text p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .feature-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--green-dark);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .feature-link:hover { color: var(--green); }
+
+  .feature-img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    height: 320px;
+    display: block;
+  }
+
+  /* ── VALUES GRID ── */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .value-card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 28px 24px;
+    transition: all 0.2s;
+  }
+
+  .value-card:hover {
+    border-bottom: 4px solid var(--green);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+
+  .value-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(16,68,132,0.08);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .value-icon svg { width: 22px; height: 22px; }
+
+  .value-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 10px;
+  }
+
+  .value-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    position: relative;
+    height: 280px;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 40px;
+    overflow: hidden;
+  }
+
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .page-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,46,97,0.75) 0%, rgba(16,68,132,0.88) 100%);
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    width: 100%;
+  }
+
+  .page-hero-content h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .page-hero-content h1 em {
+    font-style: normal;
+    color: var(--green);
+    display: block;
+  }
+
+  .page-hero-content p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    max-width: 580px;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  /* ── PARTNERS ── */
+  .partners-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .partner-box {
+    border: 1px solid var(--gray-border);
+    border-radius: 6px;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    color: var(--steel);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--white);
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .contact-info h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 24px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .contact-item-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(16,68,132,0.08);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-item-text p:first-child {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--green-dark);
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 3px;
+  }
+
+  .contact-item-text p:last-child {
+    font-size: 15px;
+    color: var(--text-body);
+  }
+
+  /* Form */
+  .contact-form h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 24px;
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--steel);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    border: 1px solid var(--gray-border);
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text-body);
+    background: var(--white);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--navy);
+    border-bottom: 2px solid var(--green);
+  }
+
+  .form-group textarea { min-height: 130px; resize: vertical; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ── SERVICES SECTION ── */
+  .service-areas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border: 1px solid var(--gray-border);
+    border-radius: 8px;
+    padding: 28px 24px;
+    transition: all 0.2s;
+  }
+
+  .service-card:hover {
+    border-bottom: 4px solid var(--green);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transform: translateY(-2px);
+  }
+
+  .service-card-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .service-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 10px;
+  }
+
+  .service-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.7);
+    padding: 56px 0 0;
+  }
+
+  .footer-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .footer-brand-name span { color: var(--green); }
+
+  .footer-brand-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    max-width: 260px;
+    margin-bottom: 20px;
+  }
+
+  .footer-col h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .footer-col ul { list-style: none; }
+
+  .footer-col ul li {
+    margin-bottom: 10px;
+  }
+
+  .footer-col ul li a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .footer-col ul li a:hover,
+  .footer-col ul li a.active-footer { color: var(--green); }
+
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb {
+    background: var(--gray-bg);
+    border-bottom: 1px solid var(--gray-border);
+    padding: 12px 0;
+  }
+
+  .breadcrumb-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .breadcrumb-inner a { color: var(--navy); cursor: pointer; }
+  .breadcrumb-inner a:hover { color: var(--green); }
+
+  /* ── HOME INTRO ── */
+  .home-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 80px 0;
+  }
+
+  .home-intro-text h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .home-intro-text p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+
+  .home-intro-text .btn { margin-top: 10px; }
+
+  .home-intro-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  /* ── PRODUCT CATEGORIES ── */
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .cat-card {
+    position: relative;
+    height: 260px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .cat-card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s;
+  }
+
+  .cat-card:hover .cat-card-bg { transform: scale(1.05); }
+
+  .cat-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(0,46,97,0.88) 100%);
+  }
+
+  .cat-card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 24px;
+  }
+
+  .cat-card-text h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .cat-card-text p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .cat-card-text .btn {
+    padding: 8px 18px;
+    font-size: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .products-grid { grid-template-columns: repeat(2, 1fr); }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .feature-split { grid-template-columns: 1fr; gap: 32px; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .cat-grid { grid-template-columns: 1fr; }
+    .home-intro { grid-template-columns: 1fr; }
+    .service-areas { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 36px; }
+  }
+
+  @media (max-width: 600px) {
+    .products-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 20px; }
+    .section { padding: 48px 0; }
+    .service-areas { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; padding: 0 20px 40px; }
+  }
+
+  /* animate */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content > * {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-label { animation-delay: 0.1s; }
+  .hero h1 { animation-delay: 0.2s; }
+  .hero-subtitle { animation-delay: 0.3s; }
+  .hero-actions { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">智齊先進 <span>Gitek</span> Advance</div>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">首頁</a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="showPage('wiring')" id="nav-wiring">產品介紹</a>
+        <div class="dropdown">
+          <a href="#" onclick="showPage('wiring')">配線器材</a>
+          <a href="#" onclick="showPage('control')">控制元件</a>
+          <a href="#" onclick="showPage('product-portfolio')">產品總覽</a>
+        </div>
+      </li>
+      <li><a href="#" onclick="showPage('services')" id="nav-services">服務領域</a></li>
+      <li><a href="#" onclick="showPage('about')" id="nav-about">公司</a></li>
+      <li><a href="#" onclick="showPage('contact')" id="nav-contact">聯絡我們</a></li>
+      <li><span class="nav-lang">繁中 | EN</span></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: HOME -->
+<!-- ══════════════════════════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <h1 style="font-size:56px;margin-bottom:20px;">全力以赴，共創三贏</h1>
+      <p class="hero-subtitle">智齊先進致力於提供高品質的配線器材與控制元件。我們以誠信、品質、專業與責任為核心價值，為您的工業應用提供最可靠的解決方案。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#" onclick="showPage('wiring')">產品介紹 →</a>
+        <a class="btn btn-ghost" href="#" onclick="showPage('contact')">聯絡我們</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">年產業經驗</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">合作客戶</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">歐洲品牌代理</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">3,000+</div>
+        <div class="stat-label">產品型號</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Intro -->
+  <section class="section">
+    <div class="container">
+      <div class="home-intro">
+        <div class="home-intro-text">
+          <div class="section-heading" style="margin-bottom:20px;">
+            <div class="accent-bar"></div>
+            <h2 style="font-size:26px;">關於智齊先進<span style="display:block;font-size:15px;font-weight:400;color:var(--text-muted);margin-top:4px;">About Gitek Advance</span></h2>
+          </div>
+          <p>我們深耕於高階工業自動化領域，與歐洲頂尖製造商建立穩固的策略合作夥伴關係。透過引進先進的配線器材與控制元件，我們不僅提供單一產品，更致力於整合技術資源，確保每一項組件都能在嚴苛的工業環境中發揮最大效能。</p>
+          <p>我們的代理定位著眼於技術轉移與在地化支援，讓台灣及亞太地區的客戶能夠無縫接軌國際高標準，提升整體設備的可靠度與競爭力。</p>
+          <a class="btn btn-navy" href="#" onclick="showPage('about')" style="margin-top:10px;">了解更多</a>
+        </div>
+        <img
+          src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg"
+          alt="Company"
+          class="home-intro-img"
+          onerror="this.style.background='#e2e2e2'"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Categories -->
+  <section class="section section-gray">
+    <div class="container">
+      <div class="section-heading">
+        <div class="accent-bar"></div>
+        <h2>產品介紹 <span>Products</span></h2>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card" onclick="showPage('wiring')">
+          <div class="cat-card-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg')"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-text">
+            <h3>配線器材</h3>
+            <p>Wiring Devices — 高品質工業配線解決方案</p>
+            <a class="btn btn-primary" href="#" onclick="event.stopPropagation();showPage('wiring')">了解更多</a>
+          </div>
+        </div>
+        <div class="cat-card" onclick="showPage('control')">
+          <div class="cat-card-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg')"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-text">
+            <h3>控制元件</h3>
+            <p>Control Components — 精密控制系統整合方案</p>
+            <a class="btn btn-primary" href="#" onclick="event.stopPropagation();showPage('control')">了解更多</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="accent-bar"></div>
+        <h2>核心價值 <span>Core Values</span></h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>誠信</h3>
+          <p>整守承諾，建立透明且長遠的合作夥伴關係。以誠信為基礎，提供客戶最可靠的服務。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M19.07 4.93 4.93 19.07"/></svg>
+          </div>
+          <h3>品質</h3>
+          <p>嚴格把關，提供符合歐洲工業標準的高階元件。每項產品均通過嚴格的品質驗證程序。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>專業</h3>
+          <p>深厚的技術意蘊，量身打造系統化解決方案。專業技術團隊提供全方位的工業應用支援。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>負責</h3>
+          <p>從售前諮詢到售後維護，提供全方位的支援與保障。對每個專案負起完整責任。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section style="background:var(--navy); padding:60px 0;">
+    <div class="container" style="text-align:center;">
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--white);margin-bottom:12px;">有產品詢問或技術需求？</h2>
+      <p style="color:rgba(255,255,255,0.7);font-size:15px;margin-bottom:28px;">我們的專業團隊隨時為您提供最佳解決方案</p>
+      <a class="btn btn-primary" href="#" onclick="showPage('contact')">立即聯絡我們</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: WIRING DEVICES -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-wiring">
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>配線器材 <em>Wiring Devices</em></h1>
+      <p>High-quality industrial wiring solutions engineered for precision, durability, and safety in complex electrical systems.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">首頁</a> › <span>配線器材</span>
+    </div>
+  </div>
+
+  <!-- Feature 1 -->
+  <section class="section">
+    <div class="container">
+      <div class="feature-split">
+        <div class="feature-text">
+          <h3>電子設備連接線束</h3>
+          <p>專注於線材加工，擁有先進的設備和技術團隊，提供高品質和專業的服務。無論是在軌道車輛、機械設備還是自動化設備，我們都擁有豐富的經驗和技術能力，為客戶提供全方位量身訂做解決方案。</p>
+          <a class="feature-link" href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            高品質與專業服務
+          </a>
+        </div>
+        <img
+          src="https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg"
+          alt="Wiring"
+          class="feature-img"
+          onerror="this.style.background='#e2e2e2'"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 2 -->
+  <section class="section section-gray">
+    <div class="container">
+      <div class="feature-split reverse">
+        <div class="feature-text">
+          <h3>OEM客製化線材加工</h3>
+          <p>從單芯線到複雜的多芯電纜線束，我們都能精確完成，並保證產品的質量和耐用性。針對不同行業和客戶的特殊應用需求，我們提供OEM客製化加工。根據客戶的設計和規格，提供完全符合需求的產品，並確保交付的及時性和產品的可靠性。</p>
+          <a class="feature-link" href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            客製化解決方案
+          </a>
+        </div>
+        <img
+          src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg"
+          alt="Cable"
+          class="feature-img"
+          onerror="this.style.background='#e2e2e2'"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading-center">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="accent-bar"></div>
+          <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--navy-deep);">產品系列</h2>
+        </div>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg" alt="配線器材A" onerror="this.style.background='#ddd'">
+            <span class="product-tag">IN STOCK</span>
+          </div>
+          <div class="product-card-body">
+            <h3>配線器材 A</h3>
+            <p>High-temperature resistant terminal block for heavy machinery applications. Supports up to 600V.</p>
+            <div class="spec-row"><span class="spec-label">Spec:</span><span class="spec-value">AWG 12-22</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg" alt="配線器材B" onerror="this.style.background='#ddd'">
+          </div>
+          <div class="product-card-body">
+            <h3>配線器材 B</h3>
+            <p>Modular cable gland system with IP68 rating for extreme environmental protection.</p>
+            <div class="spec-row"><span class="spec-label">Rating:</span><span class="spec-value">IP68</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg" alt="配線器材C" onerror="this.style.background='#ddd'">
+          </div>
+          <div class="product-card-body">
+            <h3>配線器材 C</h3>
+            <p>Heavy-duty DIN rail mounting channels, precision-cut for control panel organization.</p>
+            <div class="spec-row"><span class="spec-label">Material:</span><span class="spec-value">Alum. Alloy</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg" alt="配線器材D" onerror="this.style.background='#ddd'">
+            <span class="product-tag">NEW</span>
+          </div>
+          <div class="product-card-body">
+            <h3>配線器材 D</h3>
+            <p>Insulated crimp terminals with enhanced copper conductivity for sensitive control circuits.</p>
+            <div class="spec-row"><span class="spec-label">Type:</span><span class="spec-value">Ring / Fork</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg" alt="配線器材E" onerror="this.style.background='#ddd'">
+          </div>
+          <div class="product-card-body">
+            <h3>配線器材 E</h3>
+            <p>Flexible wire duct trunking designed to protect and route cables within dense switchgear panels.</p>
+            <div class="spec-row"><span class="spec-label">Feature:</span><span class="spec-value">Halogen Free</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-green-outline" href="#" onclick="showPage('contact')">📧 產品詢問 →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: CONTROL COMPONENTS -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-control">
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>控制元件 <em>Control Components</em></h1>
+      <p>Precision-engineered control solutions for advanced industrial applications. High reliability, durable design.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">首頁</a> › <span>控制元件</span>
+    </div>
+  </div>
+
+  <!-- Feature 1 -->
+  <section class="section">
+    <div class="container">
+      <div class="feature-split">
+        <div class="feature-text">
+          <h3>送性末抄制元件解決方案</h3>
+          <p>我們提供全系列工業級抄制元件，包含繼電器、抄制器及感測器，旨在優化自動化生產線的運作效率。憑藉卓越的技術支援與嚴格的品質抄管，確保系統在極端環境下仍能穩定運行。</p>
+          <a class="feature-link" href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            高可靠性與精準度抄制
+          </a>
+        </div>
+        <img
+          src="https://bailingtek.com.tw/wp-content/uploads/2025/02/heroimage_01.jpg"
+          alt="Control"
+          class="feature-img"
+          onerror="this.style.background='#e2e2e2'"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature 2 -->
+  <section class="section section-gray">
+    <div class="container">
+      <div class="feature-split reverse">
+        <div class="feature-text">
+          <h3>系統整合與技術諮詢</h3>
+          <p>針對複雜的工業應用場景，我們提供從選型、整合到技術維修的全方位服務。專業團隊幫助客戶優化電氣抄制架構，降低耗能並提升設備使用壽命。</p>
+          <a class="feature-link" href="#">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            客製化技術整合方案
+          </a>
+        </div>
+        <img
+          src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg"
+          alt="Integration"
+          class="feature-img"
+          onerror="this.style.background='#e2e2e2'"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading" style="margin-bottom:40px;">
+        <div class="accent-bar"></div>
+        <h2>產品系列 <span>Products</span></h2>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg" alt="控制元件A" onerror="this.style.background='#ddd'">
+            <span class="product-tag">NEW</span>
+          </div>
+          <div class="product-card-body">
+            <h3>控制元件 A</h3>
+            <p>High-capacity industrial relay designed for automated manufacturing systems. Voltage rating 24V DC.</p>
+            <div class="spec-row"><span class="spec-label">額定電壓</span><span class="spec-value">24V DC</span></div>
+            <div class="spec-row"><span class="spec-label">接點容量</span><span class="spec-value">10A</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/02/heroimage_01.jpg" alt="控制元件B" onerror="this.style.background='#ddd'">
+          </div>
+          <div class="product-card-body">
+            <h3>控制元件 B</h3>
+            <p>Compact programmable logic controller module for streamlined factory automation.</p>
+            <div class="spec-row"><span class="spec-label">通訊介面</span><span class="spec-value">RS-485</span></div>
+            <div class="spec-row"><span class="spec-label">I/O 點數</span><span class="spec-value">16 In / 16 Out</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg" alt="控制元件C" onerror="this.style.background='#ddd'">
+          </div>
+          <div class="product-card-body">
+            <h3>控制元件 C</h3>
+            <p>Precision optical sensor controller with high-speed response capabilities.</p>
+            <div class="spec-row"><span class="spec-label">響應時間</span><span class="spec-value">&lt; 1ms</span></div>
+            <div class="spec-row"><span class="spec-label">防護等級</span><span class="spec-value">IP67</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg" alt="控制元件D" onerror="this.style.background='#ddd'">
+            <span class="product-tag">HOT</span>
+          </div>
+          <div class="product-card-body">
+            <h3>控制元件 D</h3>
+            <p>Heavy-duty AC motor drive featuring advanced thermal management and vector control.</p>
+            <div class="spec-row"><span class="spec-label">功率範圍</span><span class="spec-value">1.5 - 15 kW</span></div>
+            <div class="spec-row"><span class="spec-label">過載能力</span><span class="spec-value">150% / 60s</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-wrap">
+            <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image01.jpg" alt="控制元件E" onerror="this.style.background='#ddd'">
+          </div>
+          <div class="product-card-body">
+            <h3>控制元件 E</h3>
+            <p>DIN-rail mountable industrial power supply. Highly efficient with active PFC.</p>
+            <div class="spec-row"><span class="spec-label">輸出電壓</span><span class="spec-value">24V DC</span></div>
+            <div class="spec-row"><span class="spec-label">效率</span><span class="spec-value">&gt; 92%</span></div>
+          </div>
+          <div class="product-card-footer"><a class="btn btn-primary" href="#" onclick="showPage('contact')">📧 產品詢問</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: PRODUCT PORTFOLIO -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-product-portfolio">
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/02/heroimage_01.jpg')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>產品總覽 <em>Product Portfolio</em></h1>
+      <p>Complete range of industrial-grade components for precision manufacturing and automation systems.</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">首頁</a> › <span>產品總覽</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+        <div>
+          <div class="section-heading" style="margin-bottom:28px;">
+            <div class="accent-bar"></div>
+            <h2 style="font-size:22px;">配線器材</h2>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead>
+              <tr style="background:rgba(16,68,132,0.08);">
+                <th style="text-align:left;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.05em;color:var(--navy-deep);">產品系列</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.05em;color:var(--navy-deep);">規格</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.05em;color:var(--navy-deep);">庫存</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #eee;"><td style="padding:11px 14px;">端子台系列</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">AWG 12-22</td><td style="padding:11px 14px;"><span style="background:var(--green);color:var(--navy-deep);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;font-family:'Montserrat'">現貨</span></td></tr>
+              <tr style="border-bottom:1px solid #eee;background:var(--gray-bg);"><td style="padding:11px 14px;">電纜固定頭</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">IP68</td><td style="padding:11px 14px;">詢價</td></tr>
+              <tr style="border-bottom:1px solid #eee;"><td style="padding:11px 14px;">DIN 導軌</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">鋁合金</td><td style="padding:11px 14px;"><span style="background:var(--green);color:var(--navy-deep);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;font-family:'Montserrat'">現貨</span></td></tr>
+              <tr style="border-bottom:1px solid #eee;background:var(--gray-bg);"><td style="padding:11px 14px;">壓著端子</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">Ring / Fork</td><td style="padding:11px 14px;">詢價</td></tr>
+              <tr><td style="padding:11px 14px;">配線槽</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">無鹵素</td><td style="padding:11px 14px;"><span style="background:var(--green);color:var(--navy-deep);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;font-family:'Montserrat'">現貨</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div class="section-heading" style="margin-bottom:28px;">
+            <div class="accent-bar"></div>
+            <h2 style="font-size:22px;">控制元件</h2>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead>
+              <tr style="background:rgba(16,68,132,0.08);">
+                <th style="text-align:left;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.05em;color:var(--navy-deep);">產品系列</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.05em;color:var(--navy-deep);">規格</th>
+                <th style="text-align:left;padding:12px 14px;font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:0.05em;color:var(--navy-deep);">庫存</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #eee;"><td style="padding:11px 14px;">工業繼電器</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">24V DC / 10A</td><td style="padding:11px 14px;"><span style="background:var(--green);color:var(--navy-deep);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;font-family:'Montserrat'">現貨</span></td></tr>
+              <tr style="border-bottom:1px solid #eee;background:var(--gray-bg);"><td style="padding:11px 14px;">PLC 模組</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">RS-485</td><td style="padding:11px 14px;">詢價</td></tr>
+              <tr style="border-bottom:1px solid #eee;"><td style="padding:11px 14px;">光電感測控制器</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">IP67</td><td style="padding:11px 14px;"><span style="background:var(--green);color:var(--navy-deep);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;font-family:'Montserrat'">現貨</span></td></tr>
+              <tr style="border-bottom:1px solid #eee;background:var(--gray-bg);"><td style="padding:11px 14px;">AC 馬達驅動器</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">1.5 - 15 kW</td><td style="padding:11px 14px;"><span style="background:var(--green);color:var(--navy-deep);font-size:11px;font-weight:700;padding:2px 8px;border-radius:2px;font-family:'Montserrat'">現貨</span></td></tr>
+              <tr><td style="padding:11px 14px;">工業電源供應器</td><td style="padding:11px 14px;color:var(--navy);font-weight:600;">&gt; 92% 效率</td><td style="padding:11px 14px;">詢價</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top:40px;text-align:center;">
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:20px;">如需完整型錄或特殊規格詢價，請聯絡我們的業務團隊</p>
+        <a class="btn btn-primary" href="#" onclick="showPage('contact')">立即詢價</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: SERVICES -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-services">
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>服務領域 <em>Service Areas</em></h1>
+      <p>為機械設備、軌道交通及工業應用客戶提供專業、可靠且高品質的技術支援與產品服務。</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">首頁</a> › <span>服務領域</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="accent-bar"></div>
+        <h2>應用產業 <span>Industries</span></h2>
+      </div>
+      <div class="service-areas">
+        <div class="service-card">
+          <div class="service-card-icon">⚙️</div>
+          <h3>機械設備</h3>
+          <p>提供機械設備製造商所需的精密配線器材與控制元件，確保設備在高負載環境下穩定運作，延長機台使用壽命。</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">🚄</div>
+          <h3>軌道交通</h3>
+          <p>符合軌道交通嚴格安規標準的線材與控制解決方案，支援台鐵、高鐵及捷運車輛的電氣系統整合需求。</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">🏭</div>
+          <h3>自動化設備</h3>
+          <p>結合工業自動化需求，提供適配各類機器手臂、輸送設備及生產線的高效能配線與控制方案。</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">⚡</div>
+          <h3>半導體設備</h3>
+          <p>針對半導體製程設備的高精度電氣需求，提供抗干擾、高可靠性的連接器材與感測控制元件。</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">🏥</div>
+          <h3>醫療儀器</h3>
+          <p>符合醫療安規的電氣元件，適用於醫療診斷儀器、手術設備及病房監控系統的電氣設計。</p>
+        </div>
+        <div class="service-card">
+          <div class="service-card-icon">🔌</div>
+          <h3>電力能源</h3>
+          <p>為電力設施、再生能源系統提供耐高壓、抗腐蝕的配線器材，確保電力系統安全可靠運行。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-gray">
+    <div class="container">
+      <div class="section-heading">
+        <div class="accent-bar"></div>
+        <h2>服務項目 <span>What We Offer</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;">
+        <div>
+          <div style="margin-bottom:24px;">
+            <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+              <div style="width:36px;height:36px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--navy-deep);font-weight:700;font-size:14px;font-family:'Montserrat';">01</div>
+              <div>
+                <h4 style="font-family:'Montserrat';font-size:15px;font-weight:700;color:var(--navy-deep);margin-bottom:6px;">技術選型諮詢</h4>
+                <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">根據客戶的應用場景與規格需求，協助選擇最適合的產品型號，提供完整的技術評估報告。</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+              <div style="width:36px;height:36px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--navy-deep);font-weight:700;font-size:14px;font-family:'Montserrat';">02</div>
+              <div>
+                <h4 style="font-family:'Montserrat';font-size:15px;font-weight:700;color:var(--navy-deep);margin-bottom:6px;">OEM 客製化加工</h4>
+                <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">提供線材 OEM 客製化服務，依照客戶圖面規格進行生產，確保品質與交期的穩定性。</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:20px;">
+              <div style="width:36px;height:36px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--navy-deep);font-weight:700;font-size:14px;font-family:'Montserrat';">03</div>
+              <div>
+                <h4 style="font-family:'Montserrat';font-size:15px;font-weight:700;color:var(--navy-deep);margin-bottom:6px;">售後技術支援</h4>
+                <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">提供完整的售後技術服務，包含安裝指導、故障排除及定期維護，確保設備持續穩定運作。</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-start;gap:16px;">
+              <div style="width:36px;height:36px;background:var(--green);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--navy-deep);font-weight:700;font-size:14px;font-family:'Montserrat';">04</div>
+              <div>
+                <h4 style="font-family:'Montserrat';font-size:15px;font-weight:700;color:var(--navy-deep);margin-bottom:6px;">庫存備料服務</h4>
+                <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">針對大型專案提供備料規劃與庫存管理服務，確保生產線不因零件短缺而停工。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img src="https://bailingtek.com.tw/wp-content/uploads/2025/01/horizonimage02.jpg" alt="Service" style="width:100%;height:380px;object-fit:cover;border-radius:8px;" onerror="this.style.background='#ddd'">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: ABOUT -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-about">
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>關於我們 <em>About Us</em></h1>
+      <p>智齊先進專注代理歐洲知名配線器材與控制元件，結合系統化解決方案與線材加工服務，為機械設備、軌道交通及工業應用客戶，提供專業、可靠且高品質的技術支援與產品服務。</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">首頁</a> › <span>關於我們</span>
+    </div>
+  </div>
+
+  <!-- Core Values -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading">
+        <div class="accent-bar"></div>
+        <h2>核心價值 <span>Core Values</span></h2>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>誠信</h3>
+          <p>整守承諾，建立透明且長遠的合作夥伴關係。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          </div>
+          <h3>品質</h3>
+          <p>嚴格把關，提供符合歐洲工業標準的高階元件。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>專業</h3>
+          <p>深厚的技術意蘊，量身打造系統化解決方案。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3>負責</h3>
+          <p>從售前諮詢到售後維護，提供全方位的支援與保障。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Story -->
+  <section class="section section-gray">
+    <div class="container">
+      <div class="feature-split">
+        <div class="feature-text">
+          <h3>公司簡介</h3>
+          <p>我們深耕於高階工業自動化領域，與歐洲頂尖製造商建立穩固的策略合作夥伴關係。透過引進先進的配線器材與控制元件，我們不僅提供單一產品，更致力於整合技術資源，確保每一項組件都能在嚴苛的工業環境中發揮最大效能。</p>
+          <p>我們的代理定位著眼於技術轉移與在地化支援，讓台灣及亞太地區的客戶能夠無縫接軌國際高標準，提升整體設備的可靠度與競爭力。</p>
+        </div>
+        <img
+          src="https://bailingtek.com.tw/wp-content/uploads/2025/01/image02.jpg"
+          alt="About"
+          class="feature-img"
+          onerror="this.style.background='#e2e2e2'"
+        >
+      </div>
+    </div>
+  </section>
+
+  <!-- Partners -->
+  <section class="section">
+    <div class="container">
+      <div class="section-heading-center">
+        <h2 style="font-family:'Montserrat',sans-serif;font-size:28px;font-weight:700;color:var(--navy-deep);">合作品牌與認證</h2>
+        <p>Partners &amp; Certifications</p>
+      </div>
+      <div class="partners-row">
+        <div class="partner-box">LOGO A</div>
+        <div class="partner-box">LOGO B</div>
+        <div class="partner-box">LOGO C</div>
+        <div class="partner-box">LOGO D</div>
+        <div class="partner-box">LOGO E</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE: CONTACT -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-contact">
+
+  <div class="page-hero">
+    <div class="page-hero-bg" style="background-image:url('https://bailingtek.com.tw/wp-content/uploads/2025/02/heroimage_01.jpg')"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <h1>聯絡我們 <em>Contact Us</em></h1>
+      <p>我們的專業團隊隨時為您提供技術諮詢與產品詢價服務，歡迎來電或填寫以下表單。</p>
+    </div>
+  </div>
+
+  <div class="breadcrumb">
+    <div class="breadcrumb-inner">
+      <a onclick="showPage('home')">首頁</a> › <span>聯絡我們</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+
+        <div class="contact-info">
+          <h3>聯絡資訊</h3>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <p>地址</p>
+              <p>台灣（詳細地址請來電洽詢）</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.1 6.1l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <p>電話</p>
+              <p>請來信洽詢</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <p>Email</p>
+              <p>info@gitekadvance.com.tw</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#104484" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="contact-item-text">
+              <p>服務時間</p>
+              <p>週一至週五 09:00 – 18:00</p>
+            </div>
+          </div>
+
+          <div style="margin-top:32px;padding:24px;background:var(--gray-bg);border-radius:8px;border-left:4px solid var(--green);">
+            <p style="font-size:14px;font-weight:700;color:var(--navy-deep);margin-bottom:8px;">快速詢價</p>
+            <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">提供產品型號或應用需求說明，我們將在一個工作天內回覆您的詢價。</p>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <h3>產品詢問 / 聯絡表單</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>公司名稱</label>
+              <input type="text" placeholder="請輸入公司名稱">
+            </div>
+            <div class="form-group">
+              <label>聯絡人姓名</label>
+              <input type="text" placeholder="請輸入姓名">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>電話</label>
+              <input type="tel" placeholder="請輸入聯絡電話">
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="請輸入 Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>詢問類別</label>
+            <select>
+              <option value="">請選擇詢問類別</option>
+              <option>配線器材詢價</option>
+              <option>控制元件詢價</option>
+              <option>OEM 客製化加工</option>
+              <option>技術諮詢</option>
+              <option>其他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>詢問內容</label>
+            <textarea placeholder="請描述您的需求或問題，例如產品型號、規格要求、應用場景等..."></textarea>
+          </div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;" onclick="handleSubmit()">
+            📧 送出詢問
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── FOOTER (shared) ── -->
+<footer id="main-footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">智齊先進 <span>Gitek</span> Advance</div>
+      <p class="footer-brand-desc">Precision Engineering for Tomorrow. 專業代理歐洲知名配線器材與控制元件，提供系統化解決方案。</p>
+      <p style="font-size:12px;color:rgba(255,255,255,0.35);">© 智齊先進股份有限公司 Gitek Advance Co., Ltd. All Rights Reserved.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a onclick="showPage('wiring')">配線器材</a></li>
+        <li><a onclick="showPage('control')">控制元件</a></li>
+        <li><a onclick="showPage('product-portfolio')">產品總覽</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a onclick="showPage('home')">首頁</a></li>
+        <li><a onclick="showPage('about')">公司介紹</a></li>
+        <li><a onclick="showPage('services')">服務領域</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a onclick="showPage('contact')">聯絡我們</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Gitek Advance Co., Ltd. All Rights Reserved.</span>
+    <span>design by <strong style="color:rgba(255,255,255,0.6);">Morcept</strong></span>
+  </div>
+</footer>
+
+<script>
+  const pages = ['home','wiring','control','product-portfolio','services','about','contact'];
+  const navMap = {
+    home: 'nav-home',
+    wiring: 'nav-wiring',
+    control: 'nav-wiring',
+    'product-portfolio': 'nav-wiring',
+    services: 'nav-services',
+    about: 'nav-about',
+    contact: 'nav-contact'
+  };
+
+  function showPage(id) {
+    // hide all
+    pages.forEach(p => {
+      const el = document.getElementById('page-' + p);
+      if (el) el.classList.remove('active');
+    });
+    // show target
+    const target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
+
+    // update nav active
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    const activeNav = document.getElementById(navMap[id]);
+    if (activeNav) activeNav.classList.add('active');
+
+    // scroll top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    return false;
+  }
+
+  function handleSubmit() {
+    alert('感謝您的詢問！我們將在一個工作天內回覆您。');
+  }
+
+  // prevent default on all internal links
+  document.querySelectorAll('a[onclick]').forEach(a => {
+    a.addEventListener('click', e => e.preventDefault());
+  });
+</script>
+
+</body>
+</html>
